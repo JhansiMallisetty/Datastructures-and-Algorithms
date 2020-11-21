@@ -1,0 +1,224 @@
+1)
+
+package main
+
+import "fmt"
+func main() {
+
+var stack []string
+
+stack = append(stack, "One") 
+stack = append(stack, "Kloud ")
+
+for len(stack) > 0 {
+    n := len(stack) - 1 
+    fmt.Print(stack[n])
+
+    stack = stack[:n] 
+}
+}
+
+
+Kloud One
+Program exited.
+
+2)
+
+package main
+import "fmt"
+
+type Stack []string
+
+
+func (s *Stack) IsEmpty() bool {
+	return len(*s) == 0
+}
+
+
+func (s *Stack) Push(str string) {
+	*s = append(*s, str) 
+}
+
+
+func (s *Stack) Pop() (string, bool) {
+	if s.IsEmpty() {
+		return "", false
+	} else {
+		index := len(*s) - 1 
+		element := (*s)[index] 
+		*s = (*s)[:index] 
+		return element, true
+	}
+}
+
+func main() {
+var stack Stack 
+
+	stack.Push("company")
+	stack.Push("one")
+	stack.Push("kloud")
+
+	for len(stack) > 0 {
+		x, y := stack.Pop()
+		if y == true {
+			fmt.Println(x)
+		}
+	}
+}
+
+kloud
+one
+company
+
+Program exited.
+
+3)
+
+package main
+ 
+import (
+	"fmt"
+)
+ 
+type item struct {
+	value interface{} 
+	next  *item
+}
+ 
+type Stack struct {
+	top  *item
+	size int
+}
+ 
+func (stack *Stack) Len() int {
+	return stack.size
+}
+ 
+func (stack *Stack) Push(value interface{}) {
+	stack.top = &item{
+		value: value,
+		next:  stack.top,
+	}
+	stack.size++
+}
+ 
+func (stack *Stack) Pop() (value interface{}) {
+	if stack.Len() > 0 {
+		value = stack.top.value
+		stack.top = stack.top.next
+		stack.size--
+		return
+	}
+ 
+	return nil
+}
+ 
+func main() {
+	stack := new(Stack)
+	
+	stack.Push(2)
+	stack.Push("jhansi")
+	stack.Push(4.0)
+ 
+	
+	for stack.Len() > 0 {
+		fmt.Println(stack.Pop())
+	}
+}
+
+4
+jhansi
+2
+
+Program exited.
+
+4)
+
+package main
+
+import (
+    "container/list"
+    "fmt"
+)
+
+type customStack struct {
+    stack *list.List
+}
+
+func (c *customStack) Push(value string) {
+    c.stack.PushFront(value)
+}
+
+func (c *customStack) Pop() error {
+    if c.stack.Len() > 0 {
+        ele := c.stack.Front()
+        c.stack.Remove(ele)
+    }
+    return fmt.Errorf("Pop Error: Queue is empty")
+}
+
+func (c *customStack) Front() (string, error) {
+    if c.stack.Len() > 0 {
+        if val, ok := c.stack.Front().Value.(string); ok {
+            return val, nil
+        }
+        return "", fmt.Errorf("Peep Error: Queue Datatype is incorrect")
+    }
+    return "", fmt.Errorf("Peep Error: Queue is empty")
+}
+
+func (c *customStack) Size() int {
+    return c.stack.Len()
+}
+
+func (c *customStack) Empty() bool {
+    return c.stack.Len() == 0
+}
+
+func main() {
+    customQueue := &customStack{
+        stack: list.New(),
+    }
+    fmt.Printf("Push: A\n")
+    customQueue.Push("A")
+    fmt.Printf("Push: B\n")
+    customQueue.Push("B")
+    fmt.Printf("Size: %d\n", customQueue.Size())
+    for customQueue.Size() > 0 {
+        frontVal, _ := customQueue.Front()
+        fmt.Printf("Front: %s\n", frontVal)
+        fmt.Printf("Pop: %s\n", frontVal)
+        customQueue.Pop()
+    }
+    fmt.Printf("Size: %d\n", customQueue.Size())
+}
+
+Push: A
+Push: B
+Size: 2
+Front: B
+Pop: B
+Front: A
+Pop: A
+Size: 0
+
+Program exited.
+
+
+5)
+
+package main
+import "fmt"
+
+type Foo struct{
+    x int
+}
+func main(){
+    var i = 10
+    var foo = Foo{i}
+    fmt.Println(foo.x) 
+}
+
+10
+
+Program exited.
